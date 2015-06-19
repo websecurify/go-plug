@@ -125,6 +125,11 @@ func setupDatabaseConnection() {
 	
 	// ---
 	
+	mongoDatabase := GetenvF("MONGO_DATABASE")
+	mongoCollection := GetenvF("MONGO_COLLECTION")
+	
+	// ---
+	
 	Info("connecting to mongo databases at", mongoServers)
 	
 	// ---
@@ -136,11 +141,6 @@ func setupDatabaseConnection() {
 	}
 	
 	defer s.Close()
-	
-	// ---
-	
-	mongoDatabase := GetenvF("MONGO_DATABASE")
-	mongoCollection := GetenvF("MONGO_COLLECTION")
 	
 	// ---
 	
