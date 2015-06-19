@@ -25,7 +25,7 @@ import (
 // ---
 
 var G struct {
-	C *mgo.Collection
+	D *mgo.Database
 }
 
 // ---
@@ -126,7 +126,6 @@ func setupDatabaseConnection() {
 	// ---
 	
 	mongoDatabase := GetenvF("MONGO_DATABASE")
-	mongoCollection := GetenvF("MONGO_COLLECTION")
 	
 	// ---
 	
@@ -144,7 +143,7 @@ func setupDatabaseConnection() {
 	
 	// ---
 	
-	G.C = s.DB(mongoDatabase).C(mongoCollection)
+	G.D = s.DB(mongoDatabase)
 }
 
 // ---
