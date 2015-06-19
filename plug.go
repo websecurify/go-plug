@@ -52,13 +52,15 @@ func Getenv(name string) (string) {
 	return os.Getenv(name)
 }
 
+// ---
+
 func GetenvF(name string) (string) {
 	value := os.Getenv(name)
 	
 	// ---
 	
 	if value == "" {
-		Fatal("undefined", name)
+		Fatal("undefined ", name)
 	}
 	
 	return value
