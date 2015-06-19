@@ -32,22 +32,6 @@ var G struct {
 // ---
 // ---
 
-func Getenv(name string, defaultValue string) (string) {
-	value := os.Getenv(name)
-	
-	// ---
-	
-	if value != "" {
-		return value
-	} else {
-		return defaultValue
-	}
-}
-
-// ---
-// ---
-// ---
-
 func Info(v ...interface{}) {
 	log.Println(v...)
 }
@@ -58,6 +42,38 @@ func Error(v ...interface{}) {
 
 func Fatal(v ...interface{}) {
 	log.Fatal(v...)
+}
+
+// ---
+// ---
+// ---
+
+func Getenv(name string) (string) {
+	return os.Getenv(name)
+}
+
+func GetenvF(name string) (string) {
+	value := os.Getenv(name)
+	
+	// ---
+	
+	if value == "" {
+		Fatal("undefined", name)
+	}
+	
+	return value
+}
+
+func GetenvD(name string, defaultValue string) (string) {
+	value := os.Getenv(name)
+	
+	// ---
+	
+	if value == "" {
+		value = defaultValue
+	}
+	
+	return defaultValue
 }
 
 // ---
@@ -81,7 +97,7 @@ func Run(receiver interface{}, name string) {
 	
 	// ---
 	
-	address := Getenv("ADDRESS", ":8080")
+	address := GetenvD("ADDRESS", ":8080")
 	
 	// ---
 	
@@ -97,7 +113,7 @@ func Run(receiver interface{}, name string) {
 // ---
 
 func setupDatabaseConnection() {
-	mongoServers := os.Getenv("MONGO_SERVERS")
+	mongoServers := Getenv("MONGO_SERVERS")
 	
 	// ---
 	
@@ -121,19 +137,8 @@ func setupDatabaseConnection() {
 	
 	// ---
 	
-	mongoDatabase := os.Getenv("MONGO_DATABASE")
-	
-	if mongoDatabase == "" {
-		Fatal("undefined mongo database")
-	}
-	
-	// ---
-	
-	mongoCollection := os.Getenv("MONGO_COLLECTION")
-	
-	if mongoCollection == "" {
-		Fatal("undefined mongo collection")
-	}
+	mongoDatabase := GetenvF("MONGO_DATABASE")
+	mongoCollection := GetenvF("MONGO_COLLECTION")
 	
 	// ---
 	
