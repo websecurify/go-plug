@@ -130,7 +130,7 @@ func setupDatabaseConnection() {
 	
 	// ---
 	
-	Info("connecting to mongo databases at", mongoServers)
+	Info("connecting to mongo servers at", mongoServers)
 	
 	// ---
 	
