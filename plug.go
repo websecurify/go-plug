@@ -11,22 +11,10 @@ import (
 	
 	// ---
 	
-	"gopkg.in/mgo.v2"
-	
-	// ---
-	
 	"github.com/gorilla/rpc"
 	"github.com/gorilla/rpc/json"
 	"github.com/gorilla/handlers"
 )
-
-// ---
-// ---
-// ---
-
-var G struct {
-	D *mgo.Database
-}
 
 // ---
 // ---
@@ -114,44 +102,8 @@ func Run(receiver interface{}, name string) {
 // ---
 // ---
 
-func setupDatabaseConnection() {
-	mongoServers := Getenv("MONGO_SERVERS")
-	
-	// ---
-	
-	if mongoServers == "" {
-		return
-	}
-	
-	// ---
-	
-	mongoDatabase := GetenvF("MONGO_DATABASE")
-	
-	// ---
-	
-	Info("connecting to mongo servers", mongoServers)
-	
-	// ---
-	
-	s, e := mgo.Dial(mongoServers)
-	
-	if e != nil {
-		Fatal(e)
-	}
-	
-	defer s.Close()
-	
-	// ---
-	
-	G.D = s.DB(mongoDatabase)
-}
-
-// ---
-// ---
-// ---
-
 func init() {
-	setupDatabaseConnection()
+	// pass
 }
 
 // ---
